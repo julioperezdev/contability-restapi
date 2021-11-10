@@ -6,40 +6,27 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
-
-    /*
-    private Long userId;
-    private String username;
-    private String password;
-    private String email;
-    private Instant created;
-    private boolean enable;
-     */
-
+public interface UserRepository extends JpaRepository<User, Long> {
 
 
     String queryCreateUser =
-            "INSERT INTO Users (username, password, email, created, enable) " +
-                    "VALUES( :username, :password, :email, :created, :enable) RETURNING *;";
+            "EXEC createUser @Username = :username , @Password = :password , @Email = :email , @Created = :created, @Enable = :enable ";
     @Query(value = queryCreateUser, nativeQuery = true)
     User createUser(
             @Param("username") String username,
             @Param("password") String password,
             @Param("email") String email,
-            @Param("created") Instant created,
+            @Param("created") Date created,
             @Param("enable") boolean enable);
 
 
 
     String queryUpdateEnableUser =
-            "UPDATE Users SET " +
-                    "enable = :enable " +
-                    "WHERE userid = :userid " +
-                    "RETURNING * ;";
+            "EXEC updateEnableUser @Id = :userid , @Enable = :enable";
     @Query(value = queryUpdateEnableUser, nativeQuery = true)
     User updateEnableUser(
             @Param("userid") Long userid,

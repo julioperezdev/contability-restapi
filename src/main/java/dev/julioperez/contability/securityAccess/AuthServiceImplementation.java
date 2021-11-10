@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -67,7 +67,7 @@ public class AuthServiceImplementation implements AuthService {
                 user.getUsername(),
                 user.getPassword(),
                 user.getEmail(),
-                user.getCreated(),
+                Date.from(user.getCreated()),
                 user.isEnable());
         System.out.println(userCreated);
         System.out.println(userCreated.getEmail());

@@ -24,23 +24,27 @@ public class User {
 
     private boolean enable;
 
+    private Long idRol;
+
     public User(){}
 
-    public User(Long userId, String username, String password, String email, Instant created, boolean enable) {
+    public User(Long userId, String username, String password, String email, Instant created, boolean enable, Long idRol) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.created = created;
         this.enable = enable;
+        this.idRol = idRol;
     }
 
-    public User(String username, String password, String email, Instant created, boolean enable) {
+    public User(String username, String password, String email, Instant created, boolean enable, Long idRol) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.created = created;
         this.enable = enable;
+        this.idRol = idRol;
     }
 
     public Long getUserId() {
