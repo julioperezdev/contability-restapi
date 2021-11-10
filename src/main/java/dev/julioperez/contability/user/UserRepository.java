@@ -14,22 +14,23 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
     String queryCreateUser =
-            "EXEC createUser @Username = :username , @Password = :password , @Email = :email , @Created = :created, @Enable = :enable ";
+            "EXEC createUser @Username = :username , @Password = :password , @Email = :email , @Created = :created, @Enable = :enable , @IdRol = :idRol ";
     @Query(value = queryCreateUser, nativeQuery = true)
     User createUser(
             @Param("username") String username,
             @Param("password") String password,
             @Param("email") String email,
             @Param("created") Date created,
-            @Param("enable") boolean enable);
+            @Param("enable") boolean enable,
+            @Param("idRol") int idRol);
 
 
 
     String queryUpdateEnableUser =
-            "EXEC updateEnableUser @Id = :userid , @Enable = :enable";
+            "EXEC updateEnableUser @Id = :id , @Enable = :enable";
     @Query(value = queryUpdateEnableUser, nativeQuery = true)
-    User updateEnableUser(
-            @Param("userid") Long userid,
+    Optional<User> updateEnableUser(
+            @Param("id") Long userid,
             @Param("enable") boolean enable);
 
 
@@ -41,10 +42,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     String queryFindById =
             "SELECT * FROM users " +
-                    "WHERE userid = :userid ;";
+                    "WHERE id = :id ;";
     @Query(value = queryFindById, nativeQuery = true)
     Optional<User> findUserById(
-            @Param("userid") Long userid);
+            @Param("id") Long userid);
 
 
 }

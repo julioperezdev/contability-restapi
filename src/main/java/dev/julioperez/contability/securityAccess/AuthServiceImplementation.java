@@ -56,32 +56,41 @@ public class AuthServiceImplementation implements AuthService {
     @Override
     @Transactional
     public void signup(RegisterRequestDto registerRequest) {
-        User user = new User();
-        user.setUsername(registerRequest.getUsername());
-        user.setEmail(registerRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        //user.setCreated(Date.from(Instant.now()));
-        user.setCreated(Instant.now());
-        user.setEnable(false);
-        User userCreated = userRepository.createUser(
-                user.getUsername(),
-                user.getPassword(),
-                user.getEmail(),
-                Date.from(user.getCreated()),
-                user.isEnable());
-        System.out.println(userCreated);
-        System.out.println(userCreated.getEmail());
-        System.out.println(String.valueOf(userCreated.getCreated()));
-        System.out.println(userCreated.getUsername());
-        System.out.println(userCreated.getPassword());
-        System.out.println(String.valueOf(userCreated.isEnable()));
+        try {
+            User user = new User();
+            user.setUsername(registerRequest.getUsername());
+            user.setEmail(registerRequest.getEmail());
+            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+            //user.setCreated(Date.from(Instant.now()));
+            user.setCreated(Date.from(Instant.now()));
+            user.setEnable(false);
+            user.setIdRol(registerRequest.getIdRol());
+            User userCreated = userRepository.createUser(
+                    user.getUsername(),
+                    user.getPassword(),
+                    user.getEmail(),
+                    user.getCreated(),
+                    user.isEnable(),
+                    user.getIdRol());
+            //if(!userCreated.isPresent()){
+            //    throw new IllegalArgumentException("User dont found later of creation");
+            //}
+        /*logger.info(userCreated.get().getEmail());
+        logger.info(userCreated.get().getCreated().toString());
+        logger.info(userCreated.get().getUsername());
+        logger.info(userCreated.get().getPassword());
+        logger.info(String.valueOf(userCreated.get().isEnable()));
+         */
 //        generateVerificationToken(user);
-        String token = generateVerificationToken(userCreated);
-        mailServiceImplementation.sendMail(new NotificationEmail("Please Activate your Account",
-                user.getEmail(), "Thanks you for signin up to Spring Reddit," +
-                " please click on the below url to activate your account : " +
-                "http://localhost:8080/api/auth/accountVerification/" + token));
-    }
+            String token = generateVerificationToken(userCreated);
+            mailServiceImplementation.sendMail(new NotificationEmail("Please Activate your Account",
+                    user.getEmail(), "Thanks you for sign up to Spring Accounting Web Application," +
+                    " please click on the below url to activate your account : " +
+                    "http://localhost:8080/api/auth/accountVerification/" + token));
+        }catch (Exception e){
+            logger.error(e.toString());
+        }
+        }
 
     @Transactional(readOnly = true)
     public User getCurrentUser() {

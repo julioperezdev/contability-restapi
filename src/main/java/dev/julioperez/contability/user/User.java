@@ -5,14 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @Column(name = "userid")
-    private Long userId;
+    @Column(name = "id")
+    private Long id;
 
     private String username;
 
@@ -20,16 +21,17 @@ public class User {
 
     private String email;
 
-    private Instant created;
+    private Date created;
 
     private boolean enable;
 
-    private Long idRol;
+    @Column(name = "idrol")
+    private int idRol;
 
     public User(){}
 
-    public User(Long userId, String username, String password, String email, Instant created, boolean enable, Long idRol) {
-        this.userId = userId;
+    public User(Long id, String username, String password, String email, Date created, boolean enable, int idRol) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -38,7 +40,7 @@ public class User {
         this.idRol = idRol;
     }
 
-    public User(String username, String password, String email, Instant created, boolean enable, Long idRol) {
+    public User(String username, String password, String email, Date created, boolean enable, int idRol) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -48,11 +50,11 @@ public class User {
     }
 
     public Long getUserId() {
-        return userId;
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -79,11 +81,11 @@ public class User {
         this.email = email;
     }
 
-    public Instant getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Instant created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
@@ -93,5 +95,13 @@ public class User {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 }
