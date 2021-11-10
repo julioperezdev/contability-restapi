@@ -34,7 +34,7 @@ public class AuthServiceImplementation implements AuthService {
     private final MailServiceImplementation mailServiceImplementation;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
-    private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenServiceImplementation refreshTokenService;
 
     @Autowired
     public AuthServiceImplementation(PasswordEncoder passwordEncoder,
@@ -43,7 +43,7 @@ public class AuthServiceImplementation implements AuthService {
                                      MailServiceImplementation mailServiceImplementation,
                                      AuthenticationManager authenticationManager,
                                      JwtProvider jwtProvider,
-                                     RefreshTokenService refreshTokenService){
+                                     RefreshTokenServiceImplementation refreshTokenService){
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.verificationTokenRepository = verificationTokenRepository;

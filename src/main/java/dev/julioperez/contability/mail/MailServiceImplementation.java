@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class MailServiceImplementation {
+public class MailServiceImplementation implements MailService{
 
     //Logger logger = LoggerFactory.getLogger("");
 
@@ -21,6 +21,7 @@ public class MailServiceImplementation {
 
 
     @Async
+    @Override
     public void sendMail(NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);

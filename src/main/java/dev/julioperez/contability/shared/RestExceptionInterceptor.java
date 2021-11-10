@@ -1,4 +1,4 @@
-package dev.julioperez.contability.common;
+package dev.julioperez.contability.shared;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

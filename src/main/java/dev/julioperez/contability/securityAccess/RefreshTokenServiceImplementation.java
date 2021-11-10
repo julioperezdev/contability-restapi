@@ -11,10 +11,11 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 @Transactional
-public class RefreshTokenService {
+public class RefreshTokenServiceImplementation implements RefreshTokenService{
 
     private final RefreshTokenRepository refreshTokenRepository;
 
+    @Override
     public RefreshToken generateRefreshToken() {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken(UUID.randomUUID().toString());
@@ -23,11 +24,13 @@ public class RefreshTokenService {
         return refreshTokenRepository.saveRefreshToken(refreshToken.getToken(), refreshToken.getCreateDate());
     }
 
-    void validateRefreshToken(String token) {
+    @Override
+    public void validateRefreshToken(String token) {
         refreshTokenRepository.getRefreshTokenByToken(token)
-                .orElseThrow(() -> new InvalidRefreshToken());
+                .orElseThrow(() -> new InvalidRefreshTokenException());
     }
 
+    @Override
     public void deleteRefreshToken(String token) {
         refreshTokenRepository.deleteRefreshTokenByToken(token);
     }

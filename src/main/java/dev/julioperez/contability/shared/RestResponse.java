@@ -1,4 +1,4 @@
-package dev.julioperez.contability.common;
+package dev.julioperez.contability.shared;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
