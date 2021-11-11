@@ -148,8 +148,11 @@ public class AuthServiceImplementation implements AuthService {
 
     }
     public AuthenticationResponseDto refreshToken(RefreshTokenRequestDto refreshTokenRequest) {
+        logger.info("initializing refresh token process");
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        logger.info("refresh token validated");
         String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        logger.info("new refresh token generated");
         return AuthenticationResponseDto.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenRequest.getRefreshToken())

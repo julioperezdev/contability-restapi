@@ -5,6 +5,8 @@ package dev.julioperez.contability.securityAccess;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +26,8 @@ import static java.sql.Timestamp.from;
 
 @Service
 public class JwtProvider {
+
+    Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     @Value("${jwt.secretkey.jwtSecret}")
     private String jwtSecret;
@@ -71,10 +75,11 @@ public class JwtProvider {
     }
 
     public String generateTokenWithUserName(String username) {
+        logger.info("genering token with username");
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(from(Instant.now()))
-                .signWith(getPrivateKey())
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
                 .compact();
     }

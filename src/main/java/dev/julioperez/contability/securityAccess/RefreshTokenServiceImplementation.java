@@ -27,7 +27,7 @@ public class RefreshTokenServiceImplementation implements RefreshTokenService{
     @Override
     public void validateRefreshToken(String token) {
         refreshTokenRepository.getRefreshTokenByToken(token)
-                .orElseThrow(() -> new InvalidRefreshTokenException());
+                .orElseThrow(InvalidRefreshTokenException::new);
     }
 
     @Override

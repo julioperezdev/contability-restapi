@@ -20,7 +20,7 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
             @Param("createdate") Date createDate
     );
 
-    String queryGetRefreshTokenByToken = "SELECT * FROM RefreshToken WHERE token = :token ;";
+    String queryGetRefreshTokenByToken = "SELECT TOP 1 * FROM REFRESH_TOKEN WHERE token = :token ORDER BY id DESC;";
     @Query(value = queryGetRefreshTokenByToken, nativeQuery = true)
     Optional<RefreshToken> getRefreshTokenByToken(
             @Param("token") String token
