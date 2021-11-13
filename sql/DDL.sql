@@ -145,3 +145,57 @@ CREATE TABLE WORKER(
 )
 
 
+
+
+-- CREATING STORE PROCEDURE CREATE INSPECTOR
+CREATE PROCEDURE createInspector
+    @Name VARCHAR(200),
+    @StartDate DATE ,
+    @Phone VARCHAR(200),
+    @Email VARCHAR (200)
+    AS
+    INSERT INTO INSPECTOR (name, startDate, phone, email) VALUES( @Name, @StartDate,@Phone,@Email)
+SELECT TOP 1 * FROM INSPECTOR WHERE name = @Name ORDER BY id DESC
+    GO;
+
+-- CREATING STORE PROCEDURE UPDATE INSPECTOR BY ID
+CREATE PROCEDURE updateInspectorById
+    @Id INT,
+    @Name VARCHAR(200),
+    @StartDate DATE ,
+    @Phone VARCHAR(200),
+    @Email VARCHAR (200)
+    AS
+UPDATE INSPECTOR SET name = @Name , startDate = @StartDate , phone = @Phone , email = @Email WHERE id = @Id
+SELECT TOP 1 * FROM INSPECTOR WHERE id = @Id
+    GO;
+
+-- CREATING STORE PROCEDURE CREATE CONSORCIO
+CREATE PROCEDURE createConsorcio
+    @Name VARCHAR(200),
+    @Cuit VARCHAR(200),
+    @Cbu VARCHAR(200),
+    @Email VARCHAR (200),
+    @IdInspector INT,
+    @IdBank INT
+    AS
+    INSERT INTO CONSORCIO (name, cuit, cbu, email, idInspector, idBank)
+    VALUES( @Name, @Cuit, @Cbu,@Email,@IdInspector,@IdBank)
+SELECT TOP 1 * FROM CONSORCIO WHERE cuit = @Cuit ORDER BY id DESC
+    GO;
+
+-- CREATING STORE PROCEDURE CREATE CONSORCIO
+CREATE PROCEDURE createWorker
+    @Name VARCHAR(200),
+    @Cuil VARCHAR(200),
+    @Cbu VARCHAR(200),
+    @StartDate DATE ,
+    @Phone VARCHAR (200),
+    @IdConsorcio INT
+    AS
+    INSERT INTO WORKER (name, cuil, cbu, startDate, phone, idConsorcio)
+    VALUES( @Name, @Cuil, @Cbu,@StartDate,@Phone,@IdConsorcio)
+SELECT TOP 1 * FROM WORKER WHERE cuil = @Cuil ORDER BY id DESC
+    GO;
+
+
