@@ -34,7 +34,10 @@ public class Worker {
     @Column(name = "idconsorcio")
     private Long idConsorcio;
 
-    public Worker(Long id, String name, String cuil, String cbu, String phone, Date startDate, Long idConsorcio) {
+    @Column(name = "idbank")
+    private Long idBank;
+
+    public Worker(Long id, String name, String cuil, String cbu, String phone, Date startDate, Long idConsorcio, Long idBank) {
         this.id = id;
         this.name = name;
         this.cuil = cuil;
@@ -42,14 +45,16 @@ public class Worker {
         this.phone = phone;
         this.startDate = startDate;
         this.idConsorcio = idConsorcio;
+        this.idBank = idBank;
     }
 
-    public Worker(String name, String cuil, String cbu, String phone, Date startDate, Long idConsorcio) {
+    public Worker(String name, String cuil, String cbu, String phone, Date startDate, Long idConsorcio, Long idBank) {
         this.name = name;
         this.cuil = cuil;
         this.cbu = cbu;
         this.phone = phone;
         this.startDate = startDate;
         this.idConsorcio = idConsorcio;
+        this.idBank = idBank;
     }
 }

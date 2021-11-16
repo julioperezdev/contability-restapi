@@ -6,15 +6,14 @@ import java.util.Optional;
 public interface InspectorService {
 
     Optional<List<Inspector>> getAllInspectors();
-    List<MegaSearchingDTO> getDto();
 
-    String getString();
+    Inspector getInspectorById(Long id);
 
     Optional<Inspector> saveInspector(Inspector inspector);
 
     Optional<Inspector> updateInspectorById(Inspector inspector);
 
-    void deleteInspectorById(Inspector inspector);
+    void deleteInspectorById(Long inspector);
 
     Optional<List<MegaSearchingDTO>> getMegaSearchingByInspectorId(int id);
 

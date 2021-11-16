@@ -31,9 +31,9 @@ public class Consorcio {
     private Long idInspector;
 
     @Column(name = "idbank")
-    private int idBank;
+    private Long idBank;
 
-    public Consorcio(Long id, String name, String cuit, String cbu, String email, Long idInspector, int idBank) {
+    public Consorcio(Long id, String name, String cuit, String cbu, String email, Long idInspector, Long idBank) {
         this.id = id;
         this.name = name;
         this.cuit = cuit;
@@ -43,7 +43,7 @@ public class Consorcio {
         this.idBank = idBank;
     }
 
-    public Consorcio(String name, String cuit, String cbu, String email, Long idInspector, int idBank) {
+    public Consorcio(String name, String cuit, String cbu, String email, Long idInspector, Long idBank) {
         this.name = name;
         this.cuit = cuit;
         this.cbu = cbu;

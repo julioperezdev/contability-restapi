@@ -140,8 +140,10 @@ CREATE TABLE WORKER(
                        startDate DATE NOT NULL,
                        phone VARCHAR(100) NOT NULL,
                        idConsorcio INT NOT NULL,
+                       idBank INT NOT NULL,
                        PRIMARY KEY (id),
-                       FOREIGN KEY (idConsorcio) REFERENCES CONSORCIO(id)
+                       FOREIGN KEY (idConsorcio) REFERENCES CONSORCIO(id),
+                       FOREIGN KEY (idBank) REFERENCES BANK(id)
 )
 
 
@@ -191,11 +193,12 @@ CREATE PROCEDURE createWorker
     @Cbu VARCHAR(200),
     @StartDate DATE ,
     @Phone VARCHAR (200),
-    @IdConsorcio INT
+    @IdConsorcio INT,
+    @IdBank INT
     AS
-    INSERT INTO WORKER (name, cuil, cbu, startDate, phone, idConsorcio)
-    VALUES( @Name, @Cuil, @Cbu,@StartDate,@Phone,@IdConsorcio)
-SELECT TOP 1 * FROM WORKER WHERE cuil = @Cuil ORDER BY id DESC
+    INSERT INTO WORKER (name, cuil, cbu, startDate, phone, idConsorcio, idBank)
+    VALUES( @Name, @Cuil, @Cbu,@StartDate,@Phone,@IdConsorcio, @IdBank)
+    SELECT TOP 1 * FROM WORKER WHERE cuil = @Cuil ORDER BY id DESC
     GO;
 
 

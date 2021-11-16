@@ -14,6 +14,9 @@ import java.util.Optional;
 @RequestMapping("/api/inspector")
 public class InspectorController {
 
+    private final String DONT_HAVE_INSPECTORS = "Actually dont have inspectors";
+    private final String INSPECTORS_FOUNDED = "Inspectors was founded";
+
     private final InspectorService inspectorService;
     private final InspectorUtils inspectorUtils;
 
@@ -25,26 +28,14 @@ public class InspectorController {
 
     @GetMapping("/getall")
     public RestResponse<Optional<List<Inspector>>> getAllInspectors(){
-        String message = "Actually dont have inspectors";
+        String message = DONT_HAVE_INSPECTORS;
         HttpStatus httpStatus = HttpStatus.NO_CONTENT;
         Optional<List<Inspector>> allInspectors = inspectorService.getAllInspectors();
-        //(allInspectors).orElseThrow(IllegalArgumentException::new);
         if( !inspectorUtils.checkIfListIsPresentOrEmpty(allInspectors)){
-            message = "inspectors founded";
+            message = INSPECTORS_FOUNDED;
             httpStatus = HttpStatus.FOUND;
         }
         return new RestResponse<>(httpStatus, message, allInspectors);
     }
-
-    @GetMapping()
-    public List<MegaSearchingDTO> get(){
-        return inspectorService.getDto();
-    }
-
-    @GetMapping("/string")
-    public String getString(){
-        return inspectorService.getString();
-    }
-
 
 }

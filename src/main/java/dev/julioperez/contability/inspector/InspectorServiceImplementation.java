@@ -30,14 +30,8 @@ public class InspectorServiceImplementation implements InspectorService{
     }
 
     @Override
-    public List<MegaSearchingDTO> getDto() {
-        List<MegaSearchingDTO> dto = inspectorRepository.getDtoo();
-        return dto;
-    }
-
-    @Override
-    public String getString() {
-        return inspectorRepository.getString();
+    public Inspector getInspectorById(Long id) {
+        return inspectorRepository.getInspectorById(id).orElseThrow(IllegalStateException::new);
     }
 
     @Override
@@ -51,7 +45,7 @@ public class InspectorServiceImplementation implements InspectorService{
     }
 
     @Override
-    public void deleteInspectorById(Inspector inspector) {
+    public void deleteInspectorById(Long inspector) {
 
     }
 
